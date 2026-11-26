@@ -1,39 +1,224 @@
-# 4.-Simulation-of-R2R-Ladder-DAC-using-Op-amp
-**Aim**
+# FIR-FILTER-DESIGN
+# EXP 4 A: Design-of-FIR-Digital-Filter-using-Rectangular-Window
 
-To Simulate R2R-Ladder DAC using Op-amp
+## AIM 1:  
 
-**SOFTWARE REQUIRED**
+To perform Design-of-LOWPASS FIR-Digital-Filter-using-Rectangular-Window using SCILAB.
 
- LT-Spice        
+## APPARATUS REQUIRED: 
+PC installed with SCILAB. 
 
-**PROCEDURE**
-•        Double click on LT-Spice icon.
+# PROGRAM: 
+```
+clc ; 
+close ; 
+M=input('Enter the Odd Filter Length ='); 
+Wc=input('Enter the Digital Cut off frequency ='); 
+alpha= (M -1)/2 // Center Value 
+for n = 1:M 
+if (n ==alpha+1) 
+hd(n) = Wc/ %pi ; 
+else 
+hd(n) = sin(Wc *((n -1)-alpha)) /(((n -1)-alpha)*%pi); 
+end 
+end 
+// Rectangular Window 
+for n = 1:M 
+W(n) = 1; 
+end 
+//Windowing filter coefficients 
+h = hd.*W; 
+disp(h,'Filter Coefficients are') 
+[hzm,fr]= frmag (h,256) ; 
+subplot(2 ,1 ,1) 
+plot(2*fr, hzm) 
+xlabel( ' Normalized Digital Frequency w'); 
+ylabel( 'Magnitude '); 
+title( ' Frequency Response of  FIR LPF using Rectangular Window ') 
+hzm_dB = 20* log10 (hzm); 
+subplot (2 ,1 ,2); 
+plot(2*fr , hzm_dB); 
+xlabel( ' Normalized Digital Frequency W' ); 
+ylabel( 'Magnitude in dB'); 
+title('Frequency Response of FIR LPF using Rectangular Window');
+```
 
-•        New schematic window open.
+## CALCULATION:
 
-•        Pick and paste the required component from the library and draw the circuit diagram .
+![WhatsApp Image 2026-03-26 at 10 14 33](https://github.com/user-attachments/assets/04e0fc8a-e2a5-40b1-a2bf-e00a8a4156c1)
 
-•        Complete the connection.
+<img width="1600" height="500" alt="image" src="https://github.com/user-attachments/assets/f4f3a88f-32a9-48dc-9877-0e79119e4db1" />
 
-•        Save the file by giving file name.
-
-•        Click on the run option ->click advanced open ->select Ac analysis->enter the amplitude time delay stop time value.
-
-•        Click on the run option ->simulation window opens->place the probe ->output graph is obtained.
+##   OUTPUT: 
 
 
-  **CIRCUIT DIAGRAM**
-<img width="927" height="582" alt="Screenshot 2026-11-19 083809" src="https://github.com/user-attachments/assets/4d457e53-9681-4dd1-b31e-d34e542db01d" />
+![WhatsApp Image 2026-03-26 at 13 16 13](https://github.com/user-attachments/assets/95ad7f76-17c6-4436-8c74-7614df819f1c)
+
+## RESULT: 
+
+Thus design of low pass FIR digital filter using-Rectangular-Window waveforms were plotted and output was verified.
+
+# AIM 2:
+
+To perform DESIGN OF HIGH PASS FIR DIGITAL FILTERS using SCILAB.
+
+## APPARATUS REQUIRED: 
+PC installed with SCILAB. 
+
+## PROGRAM: 
+
+```
+clc ; 
+close ; 
+M=input('Enter the Odd Filter Length ='); 
+Wc=input('Enter the Digital Cut off frequency ='); 
+alpha= (M -1)/2 // Center Value 
+for n = 1:M 
+if (n ==alpha+1) 
+hd(n)=1-Wc/ %pi ; 
+else 
+hd(n) =-sin(Wc *((n -1)-alpha)) /(((n -1)-alpha)*%pi); 
+end 
+end 
+// Rectangular Window 
+for n = 1:M 
+W(n) =1; 
+end 
+//Windowing filter coefficients 
+h = hd.*W; 
+disp(h,'Filter Coefficients are') 
+[hzm,fr]= frmag (h,256) ; 
+subplot(2 ,1 ,1) 
+plot(2*fr, hzm) 
+xlabel( ' Normalized Digital Frequency w'); 
+ylabel( 'Magnitude '); 
+title( ' Frequency Response of  FIR LPF using Rectangular Window ') 
+hzm_dB = 20* log10 (hzm); 
+subplot (2 ,1 ,2); 
+plot(2*fr , hzm_dB); 
+xlabel( ' Normalized Digital Frequency W' ); 
+ylabel( 'Magnitude in dB'); 
+title('Frequency Response of FIR HPF using Rectangular Window');
+
+```
+## CALCULATION:
+![WhatsApp Image 2026-03-26 at 13 15 06](https://github.com/user-attachments/assets/084d25eb-0356-47b7-bd0e-a095ecb512eb)
+
+## OUTPUT: 
+
+<img width="514" height="474" alt="image" src="https://github.com/user-attachments/assets/685e1d53-c15e-4b54-b483-201f29b3b096" />
+
+<img width="762" height="721" alt="image" src="https://github.com/user-attachments/assets/405858e7-05aa-4d83-82c0-22ebd370ea21" />
 
 
-  **Output waveform**
-
-<img width="473" height="766" alt="Screenshot 2026-11-19 083749" src="https://github.com/user-attachments/assets/9f3019ac-7f42-417e-99d4-d7288943e9f2" />
 
 
+# RESULT: 
+Thus design of HIGH pass FIR digital filter using-Rectangular-Window waveforms were plotted and output was verified.
+
+## AIM 3: 
+
+To perform DESIGN OF BAND PASS FIR DIGITAL FILTERS using SCILAB.
+
+## APPARATUS REQUIRED: 
+PC installed with SCILAB. 
+
+## PROGRAM: 
+```
+clc ; 
+close ; 
+M=input('Enter the Odd Filter Length ='); 
+Wc=input('Enter the Digital Cut off frequency ='); 
+Wc2=Wc(2); 
+Wc1=Wc(1); 
+alpha= (M -1)/2 // Center Value 
+for n = 1:M 
+if (n ==alpha+1) 
+hd(n) =(Wc2-Wc1)/%pi ; 
+else 
+hd(n) =((sin(Wc2 *((n -1)-alpha)))-(sin(Wc1 *((n -1)-alpha))))/(((n -1)-alpha)*%pi); 
+end 
+end 
+// Rectangular Window 
+for n = 1:M 
+W(n) =1;  
+end 
+//Windowing filter coefficients 
+h = hd.*W; 
+disp(h,'Filter Coefficients are') 
+[hzm,fr]= frmag (h,256) ; 
+subplot(2 ,1 ,1) 
+plot(2*fr, hzm) 
+xlabel( ' Normalized Digital Frequency w'); 
+ylabel( 'Magnitude '); 
+title( ' Frequency Response of FIR BPF using Rectangular Window ') 
+hzm_dB = 20* log10 (hzm); 
+subplot (2 ,1 ,2); 
+plot(2*fr , hzm_dB); 
+xlabel( ' Normalized Digital Frequency W' ); 
+ylabel( 'Magnitude in dB'); 
+title('Frequency Response of FIR BPF using Rectangular Window');
+```
+## CALCULATION:
+<img width="1600" height="1502" alt="image" src="https://github.com/user-attachments/assets/4bd797fe-a440-4df5-9c67-b7d511aeb321" />
+
+## OUTPUT: 
+
+<img width="549" height="455" alt="image" src="https://github.com/user-attachments/assets/b8f98503-3ac2-4c95-ad8c-91e6e0397e17" />
+
+<img width="760" height="720" alt="image" src="https://github.com/user-attachments/assets/7c4b90e9-0516-4f84-8850-2622b6266d51" />
+
+## RESULT: 
+Thus design of BAND pass FIR digital filter using-Rectangular-Window waveforms were plotted and output was verified.
+
+# AIM 4: 
+To perform DESIGN OF BAND STOP FIR DIGITAL FILTER using SCILAB.
+
+## APPARATUS REQUIRED: 
+PC installed with SCILAB. 
+
+## PROGRAM: 
+```clc ; 
+close ; 
+M=input('Enter the Odd Filter Length ='); 
+Wc=input('Enter the Digital Cut off frequency ='); 
+Wc2=Wc(2); 
+Wc1=Wc(1); 
+alpha= (M -1)/2 // Center Value 
+for n = 1:M 
+if (n ==alpha+1) 
+hd(n) =1-((Wc2-Wc1)/%pi) ; 
+else 
+hd(n) =((sin(Wc1 *((n -1)-alpha)))-(sin(Wc2 *((n -1)-alpha))))/(((n -1)-alpha)*%pi); 
+end 
+end 
+// Rectangular Window 
+for n = 1:M 
+W(n) =1; 
+end 
+//Windowing filter coefficients 
+h = hd.*W; 
+disp(h,'Filter Coefficients are') 
+[hzm,fr]= frmag (h,256) ; 
+subplot(2 ,1 ,1) 
+plot(2*fr, hzm) 
+xlabel( ' Normalized Digital Frequency w'); 
+ylabel( 'Magnitude '); 
+title( ' Frequency Response of  FIR BSF using Rectangular Window ') 
+hzm_dB = 20* log10 (hzm); 
+subplot (2 ,1 ,2); 
+plot(2*fr , hzm_dB); 
+xlabel( ' Normalized Digital Frequency W' ); 
+ylabel( 'Magnitude in dB'); 
+title('Frequency Response of FIR BSF using Rectangular Window');
+```
+## CALCULATION:
+![WhatsApp Image 2026-03-26 at 10 25 14](https://github.com/user-attachments/assets/79298723-254a-41ba-a14e-24378e5900ab)
+
+## OUTPUT: 
+<img width="558" height="511" alt="image" src="https://github.com/user-attachments/assets/c36d0a45-2986-480a-975b-2109ccd4274a" />
+<img width="756" height="718" alt="image" src="https://github.com/user-attachments/assets/fa37d654-5374-468d-a383-02cd2650b162" />
 
 
-**RESULT**
-
-Thus a  Simulation of  R2R-Ladder DAC using Op-amp IC 741 was done.
+## RESULT: 
+Thus design of BAND STOP FIR digital filter using-Rectangular-Window waveforms were plotted and output was verified.
